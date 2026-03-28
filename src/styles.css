@@ -1,0 +1,158 @@
+@import "tailwindcss" source("../");
+
+/* Custom CSS variables for the SHAMAN theme */
+:root {
+  --color-gold: #c9a84c;
+  --color-gold-light: #e8c76a;
+  --color-deep-green: #0a2e1a;
+  --color-green-accent: #1a4d2e;
+  --color-green-glow: #22c55e;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* ─── Grain overlay ─── */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  animation: grain 0.5s steps(2) infinite;
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -3%); }
+  20% { transform: translate(3%, 2%); }
+  30% { transform: translate(-1%, 4%); }
+  40% { transform: translate(2%, -2%); }
+  50% { transform: translate(-3%, 1%); }
+  60% { transform: translate(1%, -4%); }
+  70% { transform: translate(-2%, 3%); }
+  80% { transform: translate(4%, -1%); }
+  90% { transform: translate(-1%, 2%); }
+}
+
+/* ─── Scroll fade-in animation ─── */
+.fade-in-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Gold glow pulse on CTA ─── */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 16px 2px rgba(201, 168, 76, 0.4); }
+  50% { box-shadow: 0 0 36px 8px rgba(201, 168, 76, 0.75); }
+}
+
+.glow-pulse {
+  animation: glow-pulse 2.5s ease-in-out infinite;
+}
+
+/* ─── Loading screen ─── */
+.loader {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@keyframes loader-spin {
+  to { transform: rotate(360deg); }
+}
+
+.loader-ring {
+  width: 56px;
+  height: 56px;
+  border: 3px solid rgba(201, 168, 76, 0.2);
+  border-top-color: #c9a84c;
+  border-radius: 50%;
+  animation: loader-spin 0.9s linear infinite;
+}
+
+/* ─── Sticky header transition ─── */
+.site-header {
+  transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+.site-header.scrolled {
+  background-color: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(12px);
+}
+
+/* ─── Vinyl card hover ─── */
+.vinyl-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vinyl-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(201, 168, 76, 0.2);
+}
+
+/* ─── Lightbox ─── */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.lightbox-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ─── Audio player custom ─── */
+audio {
+  filter: invert(1) hue-rotate(180deg);
+  width: 100%;
+}
+
+/* ─── Hero parallax ─── */
+.hero-bg {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+/* ─── Gold text ─── */
+.text-gold { color: var(--color-gold); }
+.border-gold { border-color: var(--color-gold); }
+.bg-gold { background-color: var(--color-gold); }
+
+/* ─── Deep green bg ─── */
+.bg-deep-green { background-color: var(--color-deep-green); }
+.bg-green-accent { background-color: var(--color-green-accent); }
